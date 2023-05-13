@@ -1,0 +1,21 @@
+type Route {
+    id: ID!
+    name: String!
+}
+
+type Direction {
+    name: String!
+}
+
+type Stop {
+    id: ID!
+    name: String!
+    latitude: Float!
+    longitude: Float!
+}
+
+type Query {
+    getRoutes: [Route!]!
+    getRouteDirections(id: ID!): [Direction!]!
+    getRouteStops(id: ID!, direction: String!): [Stop!]!
+}

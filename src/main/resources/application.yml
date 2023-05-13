@@ -1,0 +1,9 @@
+spring:
+  graphql:
+    graphiql:
+      enabled: true
+    cors:
+      allowed-origins:
+        - ${FRONT_END_URL}
+cta:
+  bus-api-key: ${BUS_API_KEY}
