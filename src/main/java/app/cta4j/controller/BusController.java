@@ -1,5 +1,6 @@
 package app.cta4j.controller;
 
+import app.cta4j.model.Bus;
 import app.cta4j.model.Direction;
 import app.cta4j.model.Route;
 import app.cta4j.model.Stop;
@@ -42,5 +43,12 @@ public final class BusController {
         Objects.requireNonNull(direction);
 
         return this.service.getRouteStops(id, direction);
+    }
+
+    @QueryMapping
+    public Set<Bus> getBuses(@Argument String routeId, @Argument int stopId) {
+        Objects.requireNonNull(routeId);
+
+        return this.service.getBuses(routeId, stopId);
     }
 }

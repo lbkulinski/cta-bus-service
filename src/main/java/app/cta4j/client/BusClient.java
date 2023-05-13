@@ -1,5 +1,6 @@
 package app.cta4j.client;
 
+import app.cta4j.model.BusResponse;
 import app.cta4j.model.DirectionResponse;
 import app.cta4j.model.RouteResponse;
 import app.cta4j.model.StopResponse;
@@ -18,4 +19,7 @@ public interface BusClient {
 
     @GetExchange("/getstops")
     ResponseEntity<StopResponse> getRouteStops(@RequestParam("rt") String id, @RequestParam("dir") String direction);
+
+    @GetExchange("/getpredictions")
+    ResponseEntity<BusResponse> getBuses(@RequestParam("rt") String routeId, @RequestParam("stpid") int stopId);
 }
