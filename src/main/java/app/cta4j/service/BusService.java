@@ -123,4 +123,44 @@ public final class BusService {
 
         return stops;
     }
+
+    public Set<Bus> getBuses(String routeId, int stopId) {
+        Objects.requireNonNull(routeId);
+
+        if (stopId <= 0) {
+            String message = "The specified stop ID must be positive integer";
+
+            throw new DataFetcherException(message, ErrorType.BAD_REQUEST);
+        }
+
+        ResponseEntity<BusResponse> responseEntity = this.client.getBuses(routeId, stopId);
+
+        HttpStatusCode statusCode = responseEntity.getStatusCode();
+
+        if (!statusCode.isSameCodeAs(HttpStatus.OK) || !responseEntity.hasBody()) {
+            throw new DataFetcherException(ErrorType.INTERNAL_ERROR);
+        }
+
+        BusResponse response = responseEntity.getBody();
+
+        if (response == null) {
+            throw new DataFetcherException(ErrorType.INTERNAL_ERROR);
+        }
+
+        BusBody body = response.body();
+
+        if (body == null) {
+            throw new DataFetcherException(ErrorType.INTERNAL_ERROR);
+        }
+
+        Set<Bus> buses = body.buses();
+
+        if (buses == null) {
+            String message = "Buses with the specified route ID and stop ID could not be found";
+
+            throw new DataFetcherException(message, ErrorType.NOT_FOUND);
+        }
+
+        return buses;
+    }
 }

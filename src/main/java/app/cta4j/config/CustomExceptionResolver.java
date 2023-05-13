@@ -8,32 +8,50 @@ import graphql.execution.ResultPath;
 import graphql.language.SourceLocation;
 import graphql.schema.DataFetchingEnvironment;
 import org.springframework.graphql.execution.DataFetcherExceptionResolverAdapter;
+import org.springframework.graphql.execution.ErrorType;
 import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Component;
+import org.springframework.validation.BindException;
 
 @Component
 public final class CustomExceptionResolver extends DataFetcherExceptionResolverAdapter {
     @Override
     protected GraphQLError resolveToSingleError(@NonNull Throwable throwable,
         @NonNull DataFetchingEnvironment environment) {
-        if (!(throwable instanceof DataFetcherException exception)) {
-            return null;
+        if (throwable instanceof DataFetcherException exception) {
+            ErrorClassification errorType = exception.getErrorType();
+
+            String message = throwable.getMessage();
+
+            ResultPath path = environment.getExecutionStepInfo()
+                                         .getPath();
+
+            SourceLocation location = environment.getField()
+                                                 .getSourceLocation();
+
+            return GraphqlErrorBuilder.newError()
+                                      .errorType(errorType)
+                                      .message(message)
+                                      .path(path)
+                                      .location(location)
+                                      .build();
+        } else if (throwable instanceof BindException) {
+            String message = "The specified stop ID must be positive integer";
+
+            ResultPath path = environment.getExecutionStepInfo()
+                                         .getPath();
+
+            SourceLocation location = environment.getField()
+                                                 .getSourceLocation();
+
+            return GraphqlErrorBuilder.newError()
+                                      .errorType(ErrorType.BAD_REQUEST)
+                                      .message(message)
+                                      .path(path)
+                                      .location(location)
+                                      .build();
         }
-        ErrorClassification errorType = exception.getErrorType();
 
-        String message = throwable.getMessage();
-
-        ResultPath path = environment.getExecutionStepInfo()
-                                     .getPath();
-
-        SourceLocation location = environment.getField()
-                                             .getSourceLocation();
-
-        return GraphqlErrorBuilder.newError()
-                                  .errorType(errorType)
-                                  .message(message)
-                                  .path(path)
-                                  .location(location)
-                                  .build();
+        return null;
     }
 }
