@@ -2,9 +2,6 @@ spring:
   graphql:
     graphiql:
       enabled: false
-    schema:
-      printer:
-        enabled: false
     cors:
       allowed-origins:
         - https://studio.apollographql.com #remove if you are not using Apollo Studio
