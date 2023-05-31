@@ -11,7 +11,7 @@ public final class StringToIntegerConverter extends StdConverter<String, Integer
         String due = "DUE";
 
         if (string.equalsIgnoreCase(due)) {
-            return 0;
+            return 1;
         }
 
         return Integer.parseInt(string);
