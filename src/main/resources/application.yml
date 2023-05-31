@@ -8,3 +8,5 @@ spring:
         - ${FRONT_END_URL}
 cta:
   bus-api-key: ${BUS_API_KEY}
+server:
+  port: 8082

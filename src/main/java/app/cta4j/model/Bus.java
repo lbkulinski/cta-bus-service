@@ -2,6 +2,8 @@ package app.cta4j.model;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import app.cta4j.serialization.StringToIntegerConverter;
 
 import java.util.Objects;
 
@@ -25,6 +27,7 @@ public record Bus(
     boolean delayed,
 
     @JsonAlias("prdctdn")
+    @JsonDeserialize(converter = StringToIntegerConverter.class)
     int eta
 ) {
     public enum Type {
