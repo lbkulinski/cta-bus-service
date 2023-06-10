@@ -25,6 +25,8 @@ type Bus {
     stop: String!
     route: String!
     destination: String!
+    predictionTime: String!
+    arrivalTime: String!
     delayed: Boolean!
     eta: Int!
 }
