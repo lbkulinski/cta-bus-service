@@ -28,7 +28,6 @@ type Bus {
     predictionTime: String!
     arrivalTime: String!
     delayed: Boolean!
-    eta: Int!
 }
 
 type Query {

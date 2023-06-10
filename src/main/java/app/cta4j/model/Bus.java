@@ -4,7 +4,6 @@ import app.cta4j.serialization.StringToInstantConverter;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
-import app.cta4j.serialization.StringToIntegerConverter;
 
 import java.time.Instant;
 import java.util.Objects;
@@ -34,11 +33,7 @@ public record Bus(
     Instant arrivalTime,
 
     @JsonAlias("dly")
-    boolean delayed,
-
-    @JsonAlias("prdctdn")
-    @JsonDeserialize(converter = StringToIntegerConverter.class)
-    int eta
+    boolean delayed
 ) {
     public enum Type {
         ARRIVAL,
