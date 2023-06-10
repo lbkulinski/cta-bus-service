@@ -8,7 +8,6 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
-
 public final class StringToInstantConverter extends StdConverter<String, Instant> {
     @Override
     public Instant convert(String string) {
