@@ -1,10 +1,12 @@
 package app.cta4j.model;
 
+import app.cta4j.serialization.StringToInstantConverter;
 import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import app.cta4j.serialization.StringToIntegerConverter;
 
+import java.time.Instant;
 import java.util.Objects;
 
 public record Bus(
@@ -22,6 +24,14 @@ public record Bus(
 
     @JsonAlias("des")
     String destination,
+
+    @JsonAlias("tmstmp")
+    @JsonDeserialize(converter = StringToInstantConverter.class)
+    Instant predictionTime,
+
+    @JsonAlias("prdtm")
+    @JsonDeserialize(converter = StringToInstantConverter.class)
+    Instant arrivalTime,
 
     @JsonAlias("dly")
     boolean delayed,

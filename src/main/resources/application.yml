@@ -1,10 +1,12 @@
 spring:
   graphql:
     graphiql:
-      enabled: false
+      enabled: true
     cors:
       allowed-origins:
         - https://studio.apollographql.com #remove if you are not using Apollo Studio
         - ${FRONT_END_URL}
 cta:
   bus-api-key: ${BUS_API_KEY}
+server:
+  port: 8082
