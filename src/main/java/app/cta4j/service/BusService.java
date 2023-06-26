@@ -3,12 +3,13 @@ package app.cta4j.service;
 import app.cta4j.client.BusClient;
 import app.cta4j.exception.DataFetcherException;
 import app.cta4j.model.*;
+import com.rollbar.notifier.Rollbar;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.execution.ErrorType;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClientException;
 
 import java.util.Objects;
 import java.util.Set;
@@ -17,23 +18,41 @@ import java.util.Set;
 public final class BusService {
     private final BusClient client;
 
+    private final Rollbar rollbar;
+
+    private static final Logger LOGGER;
+
+    static {
+        LOGGER = LoggerFactory.getLogger(BusService.class);
+    }
+
     @Autowired
-    public BusService(BusClient client) {
+    public BusService(BusClient client, Rollbar rollbar) {
         Objects.requireNonNull(client);
 
+        Objects.requireNonNull(rollbar);
+
         this.client = client;
+
+        this.rollbar = rollbar;
+
+        this.rollbar.debug("Hello, world!");
     }
 
     public Set<Route> getRoutes() {
-        ResponseEntity<RouteResponse> responseEntity = this.client.getRoutes();
+        RouteResponse response;
 
-        HttpStatusCode statusCode = responseEntity.getStatusCode();
+        try {
+            response = this.client.getRoutes();
+        } catch (WebClientException e) {
+            this.rollbar.error(e);
 
-        if (!statusCode.isSameCodeAs(HttpStatus.OK) || !responseEntity.hasBody()) {
+            String message = e.getMessage();
+
+            BusService.LOGGER.error(message, e);
+
             throw new DataFetcherException(ErrorType.INTERNAL_ERROR);
         }
-
-        RouteResponse response = responseEntity.getBody();
 
         if (response == null) {
             throw new DataFetcherException(ErrorType.INTERNAL_ERROR);
@@ -57,15 +76,19 @@ public final class BusService {
     public Set<Direction> getRouteDirections(String id) {
         Objects.requireNonNull(id);
 
-        ResponseEntity<DirectionResponse> responseEntity = this.client.getRouteDirections(id);
+        DirectionResponse response;
 
-        HttpStatusCode statusCode = responseEntity.getStatusCode();
+        try {
+            response = this.client.getRouteDirections(id);
+        } catch (WebClientException e) {
+            this.rollbar.error(e);
 
-        if (!statusCode.isSameCodeAs(HttpStatus.OK) || !responseEntity.hasBody()) {
+            String message = e.getMessage();
+
+            BusService.LOGGER.error(message, e);
+
             throw new DataFetcherException(ErrorType.INTERNAL_ERROR);
         }
-
-        DirectionResponse response = responseEntity.getBody();
 
         if (response == null) {
             throw new DataFetcherException(ErrorType.INTERNAL_ERROR);
@@ -93,15 +116,19 @@ public final class BusService {
 
         Objects.requireNonNull(direction);
 
-        ResponseEntity<StopResponse> responseEntity = this.client.getRouteStops(id, direction);
+        StopResponse response;
 
-        HttpStatusCode statusCode = responseEntity.getStatusCode();
+        try {
+            response = this.client.getRouteStops(id, direction);
+        } catch (WebClientException e) {
+            this.rollbar.error(e);
 
-        if (!statusCode.isSameCodeAs(HttpStatus.OK) || !responseEntity.hasBody()) {
+            String message = e.getMessage();
+
+            BusService.LOGGER.error(message, e);
+
             throw new DataFetcherException(ErrorType.INTERNAL_ERROR);
         }
-
-        StopResponse response = responseEntity.getBody();
 
         if (response == null) {
             throw new DataFetcherException(ErrorType.INTERNAL_ERROR);
@@ -133,15 +160,19 @@ public final class BusService {
             throw new DataFetcherException(message, ErrorType.BAD_REQUEST);
         }
 
-        ResponseEntity<BusResponse> responseEntity = this.client.getBuses(routeId, stopId);
+        BusResponse response;
 
-        HttpStatusCode statusCode = responseEntity.getStatusCode();
+        try {
+            response = this.client.getBuses(routeId, stopId);
+        } catch (WebClientException e) {
+            this.rollbar.error(e);
 
-        if (!statusCode.isSameCodeAs(HttpStatus.OK) || !responseEntity.hasBody()) {
+            String message = e.getMessage();
+
+            BusService.LOGGER.error(message, e);
+
             throw new DataFetcherException(ErrorType.INTERNAL_ERROR);
         }
-
-        BusResponse response = responseEntity.getBody();
 
         if (response == null) {
             throw new DataFetcherException(ErrorType.INTERNAL_ERROR);
