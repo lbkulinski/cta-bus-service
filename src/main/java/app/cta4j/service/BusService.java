@@ -35,8 +35,6 @@ public final class BusService {
         this.client = client;
 
         this.rollbar = rollbar;
-
-        this.rollbar.debug("Hello, world!");
     }
 
     public Set<Route> getRoutes() {
