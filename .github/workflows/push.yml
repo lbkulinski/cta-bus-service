@@ -18,4 +18,6 @@ jobs:
         env:
           BUS_API_KEY: ${{ secrets.BUS_API_KEY }}
           FRONT_END_URL: ${{ secrets.FRONT_END_URL }}
+          ROLLBAR_ACCESS_TOKEN: ${{ secrets.ROLLBAR_ACCESS_TOKEN }}
+          ROLLBAR_ENVIRONMENT: ${{ secrets.ROLLBAR_ENVIRONMENT }}
         run: mvn -B package --file pom.xml
