@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.execution.ErrorType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.client.WebClientException;
 
 import java.util.Objects;
 import java.util.Set;
@@ -42,7 +41,7 @@ public final class BusService {
 
         try {
             response = this.client.getRoutes();
-        } catch (WebClientException e) {
+        } catch (Exception e) {
             this.rollbar.error(e);
 
             String message = e.getMessage();
@@ -78,7 +77,7 @@ public final class BusService {
 
         try {
             response = this.client.getRouteDirections(id);
-        } catch (WebClientException e) {
+        } catch (Exception e) {
             this.rollbar.error(e);
 
             String message = e.getMessage();
@@ -118,7 +117,7 @@ public final class BusService {
 
         try {
             response = this.client.getRouteStops(id, direction);
-        } catch (WebClientException e) {
+        } catch (Exception e) {
             this.rollbar.error(e);
 
             String message = e.getMessage();
@@ -162,7 +161,7 @@ public final class BusService {
 
         try {
             response = this.client.getBuses(routeId, stopId);
-        } catch (WebClientException e) {
+        } catch (Exception e) {
             this.rollbar.error(e);
 
             String message = e.getMessage();
