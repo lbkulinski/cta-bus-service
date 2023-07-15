@@ -20,4 +20,9 @@ jobs:
           FRONT_END_URL: ${{ secrets.FRONT_END_URL }}
           ROLLBAR_ACCESS_TOKEN: ${{ secrets.ROLLBAR_ACCESS_TOKEN }}
           ROLLBAR_ENVIRONMENT: ${{ secrets.ROLLBAR_ENVIRONMENT }}
+          JDBC_DRIVER: ${{ secrets.JDBC_DRIVER }}
+          JDBC_PASSWORD: ${{ secrets.JDBC_PASSWORD }}
+          JDBC_URL: ${{ secrets.JDBC_URL }}
+          JDBC_USERNAME: ${{ secrets.JDBC_USERNAME }}
+          JOOQ_SQL_DIALECT: ${{ secrets.JOOQ_SQL_DIALECT }}
         run: mvn -B package --file pom.xml
