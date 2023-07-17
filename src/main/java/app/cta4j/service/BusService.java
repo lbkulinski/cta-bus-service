@@ -2,25 +2,19 @@ package app.cta4j.service;
 
 import app.cta4j.client.BusClient;
 import app.cta4j.exception.DataFetcherException;
-import app.cta4j.jooq.Tables;
 import app.cta4j.model.*;
 import com.rollbar.notifier.Rollbar;
-import org.jooq.DSLContext;
-import org.jooq.exception.DataAccessException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.graphql.execution.ErrorType;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 @Service
 public final class BusService {
-    private final DSLContext context;
-
     private final BusClient client;
 
     private final Rollbar rollbar;
@@ -32,14 +26,10 @@ public final class BusService {
     }
 
     @Autowired
-    public BusService(DSLContext context, BusClient client, Rollbar rollbar) {
-        Objects.requireNonNull(context);
-
+    public BusService(BusClient client, Rollbar rollbar) {
         Objects.requireNonNull(client);
 
         Objects.requireNonNull(rollbar);
-
-        this.context = context;
 
         this.client = client;
 
@@ -47,13 +37,11 @@ public final class BusService {
     }
 
     public Set<Route> getRoutes() {
-        List<Route> routes;
+        RouteResponse response;
 
         try {
-            routes = this.context.select(Tables.ROUTE.ID, Tables.ROUTE.NAME)
-                                 .from(Tables.ROUTE)
-                                 .fetchInto(Route.class);
-        } catch (DataAccessException e) {
+            response = this.client.getRoutes();
+        } catch (Exception e) {
             this.rollbar.error(e);
 
             String message = e.getMessage();
@@ -63,20 +51,33 @@ public final class BusService {
             throw new DataFetcherException(ErrorType.INTERNAL_ERROR);
         }
 
-        return Set.copyOf(routes);
+        if (response == null) {
+            throw new DataFetcherException(ErrorType.INTERNAL_ERROR);
+        }
+
+        RouteBody body = response.body();
+
+        if (body == null) {
+            throw new DataFetcherException(ErrorType.INTERNAL_ERROR);
+        }
+
+        Set<Route> routes = body.routes();
+
+        if (routes == null) {
+            throw new DataFetcherException(ErrorType.INTERNAL_ERROR);
+        }
+
+        return routes;
     }
 
     public Set<Direction> getRouteDirections(String id) {
         Objects.requireNonNull(id);
 
-        List<Direction> directions;
+        DirectionResponse response;
 
         try {
-            directions = this.context.select(Tables.ROUTE_DIRECTION.DIRECTION)
-                                     .from(Tables.ROUTE_DIRECTION)
-                                     .where(Tables.ROUTE_DIRECTION.ROUTE_ID.eq(id))
-                                     .fetchInto(Direction.class);
-        } catch (DataAccessException e) {
+            response = this.client.getRouteDirections(id);
+        } catch (Exception e) {
             this.rollbar.error(e);
 
             String message = e.getMessage();
@@ -86,7 +87,25 @@ public final class BusService {
             throw new DataFetcherException(ErrorType.INTERNAL_ERROR);
         }
 
-        return Set.copyOf(directions);
+        if (response == null) {
+            throw new DataFetcherException(ErrorType.INTERNAL_ERROR);
+        }
+
+        DirectionBody body = response.body();
+
+        if (body == null) {
+            throw new DataFetcherException(ErrorType.INTERNAL_ERROR);
+        }
+
+        Set<Direction> directions = body.directions();
+
+        if (directions == null) {
+            String message = "Directions with the specified route ID could not be found";
+
+            throw new DataFetcherException(message, ErrorType.NOT_FOUND);
+        }
+
+        return directions;
     }
 
     public Set<Stop> getRouteStops(String id, String direction) {
@@ -94,17 +113,11 @@ public final class BusService {
 
         Objects.requireNonNull(direction);
 
-        app.cta4j.jooq.enums.Direction jooqDirection = app.cta4j.jooq.enums.Direction.valueOf(direction);
-
-        List<Stop> stops;
+        StopResponse response;
 
         try {
-            stops = this.context.select(Tables.ROUTE_STOP.ID, Tables.ROUTE_STOP.NAME)
-                                .from(Tables.ROUTE_STOP)
-                                .where(Tables.ROUTE_STOP.ROUTE_ID.eq(id))
-                                .and(Tables.ROUTE_STOP.DIRECTION.eq(jooqDirection))
-                                .fetchInto(Stop.class);
-        } catch (DataAccessException e) {
+            response = this.client.getRouteStops(id, direction);
+        } catch (Exception e) {
             this.rollbar.error(e);
 
             String message = e.getMessage();
@@ -114,7 +127,25 @@ public final class BusService {
             throw new DataFetcherException(ErrorType.INTERNAL_ERROR);
         }
 
-        return Set.copyOf(stops);
+        if (response == null) {
+            throw new DataFetcherException(ErrorType.INTERNAL_ERROR);
+        }
+
+        StopBody body = response.body();
+
+        if (body == null) {
+            throw new DataFetcherException(ErrorType.INTERNAL_ERROR);
+        }
+
+        Set<Stop> stops = body.stops();
+
+        if (stops == null) {
+            String message = "Stops with the specified route ID and direction could not be found";
+
+            throw new DataFetcherException(message, ErrorType.NOT_FOUND);
+        }
+
+        return stops;
     }
 
     public Set<Bus> getBuses(String routeId, int stopId) {
