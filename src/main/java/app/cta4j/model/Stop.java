@@ -10,19 +10,9 @@ public record Stop(
     int id,
 
     @JsonAlias("stpnm")
-    String name,
-
-    @JsonAlias("lat")
-    BigDecimal latitude,
-
-    @JsonAlias("lon")
-    BigDecimal longitude
+    String name
 ) {
     public Stop {
         Objects.requireNonNull(name);
-
-        Objects.requireNonNull(latitude);
-
-        Objects.requireNonNull(longitude);
     }
 }

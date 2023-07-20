@@ -8,7 +8,6 @@ import app.cta4j.jooq.tables.Direction;
 import app.cta4j.jooq.tables.Route;
 import app.cta4j.jooq.tables.RouteDirection;
 import app.cta4j.jooq.tables.RouteStop;
-import app.cta4j.jooq.tables.Station;
 import app.cta4j.jooq.tables.Stop;
 
 
@@ -37,11 +36,6 @@ public class Tables {
      * The table <code>public.route_stop</code>.
      */
     public static final RouteStop ROUTE_STOP = RouteStop.ROUTE_STOP;
-
-    /**
-     * The table <code>public.station</code>.
-     */
-    public static final Station STATION = Station.STATION;
 
     /**
      * The table <code>public.stop</code>.

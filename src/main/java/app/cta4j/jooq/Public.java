@@ -8,7 +8,6 @@ import app.cta4j.jooq.tables.Direction;
 import app.cta4j.jooq.tables.Route;
 import app.cta4j.jooq.tables.RouteDirection;
 import app.cta4j.jooq.tables.RouteStop;
-import app.cta4j.jooq.tables.Station;
 import app.cta4j.jooq.tables.Stop;
 
 import java.util.Arrays;
@@ -53,11 +52,6 @@ public class Public extends SchemaImpl {
     public final RouteStop ROUTE_STOP = RouteStop.ROUTE_STOP;
 
     /**
-     * The table <code>public.station</code>.
-     */
-    public final Station STATION = Station.STATION;
-
-    /**
      * The table <code>public.stop</code>.
      */
     public final Stop STOP = Stop.STOP;
@@ -82,7 +76,6 @@ public class Public extends SchemaImpl {
             Route.ROUTE,
             RouteDirection.ROUTE_DIRECTION,
             RouteStop.ROUTE_STOP,
-            Station.STATION,
             Stop.STOP
         );
     }
