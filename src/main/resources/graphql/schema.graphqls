@@ -10,8 +10,6 @@ type Direction {
 type Stop {
     id: ID!
     name: String!
-    latitude: Float!
-    longitude: Float!
 }
 
 enum Type {
