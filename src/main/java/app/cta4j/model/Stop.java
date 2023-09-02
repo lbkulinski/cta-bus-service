@@ -2,7 +2,6 @@ package app.cta4j.model;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
 
-import java.math.BigDecimal;
 import java.util.Objects;
 
 public record Stop(
