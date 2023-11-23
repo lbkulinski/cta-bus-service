@@ -38,6 +38,12 @@
             <artifactId>rollbar-spring-boot3-webmvc</artifactId>
             <version>1.10.0</version>
         </dependency>
+        <!-- Added to fix Snyk issue -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>6.0.11</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jooq</artifactId>
