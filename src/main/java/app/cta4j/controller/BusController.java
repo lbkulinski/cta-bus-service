@@ -51,4 +51,9 @@ public final class BusController {
 
         return this.service.getBuses(routeId, stopId);
     }
+
+    @QueryMapping
+    public Set<Bus> followBus(@Argument int id) {
+        return this.service.followBus(id);
+    }
 }
