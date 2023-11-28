@@ -9,4 +9,7 @@ import org.springframework.web.service.annotation.HttpExchange;
 public interface BusClient {
     @GetExchange("/getpredictions")
     BusResponse getBuses(@RequestParam("rt") String routeId, @RequestParam("stpid") int stopId);
+
+    @GetExchange("/getpredictions")
+    BusResponse followBus(@RequestParam("vid") int id);
 }

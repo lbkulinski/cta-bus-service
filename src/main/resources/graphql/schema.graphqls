@@ -33,4 +33,5 @@ type Query {
     getRouteDirections(id: ID!): [Direction!]!
     getRouteStops(id: ID!, direction: String!): [Stop!]!
     getBuses(routeId: ID!, stopId: ID!): [Bus!]!
+    followBus(id: ID!): [Bus!]!
 }

@@ -164,4 +164,46 @@ public final class BusService {
 
         return buses;
     }
+
+    public Set<Bus> followBus(int id) {
+        if (id <= 0) {
+            String message = "The specified ID must be positive integer";
+
+            throw new DataFetcherException(message, ErrorType.BAD_REQUEST);
+        }
+
+        BusResponse response;
+
+        try {
+            response = this.client.followBus(id);
+        } catch (Exception e) {
+            this.rollbar.error(e);
+
+            String message = e.getMessage();
+
+            BusService.LOGGER.error(message, e);
+
+            throw new DataFetcherException(ErrorType.INTERNAL_ERROR);
+        }
+
+        if (response == null) {
+            throw new DataFetcherException(ErrorType.INTERNAL_ERROR);
+        }
+
+        BusBody body = response.body();
+
+        if (body == null) {
+            throw new DataFetcherException(ErrorType.INTERNAL_ERROR);
+        }
+
+        Set<Bus> buses = body.buses();
+
+        if (buses == null) {
+            String message = "Buses with the specified ID could not be found";
+
+            throw new DataFetcherException(message, ErrorType.NOT_FOUND);
+        }
+
+        return buses;
+    }
 }
