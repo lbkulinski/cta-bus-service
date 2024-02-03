@@ -4,8 +4,8 @@
 package app.cta4j.jooq.tables;
 
 
+import app.cta4j.jooq.Cta4j;
 import app.cta4j.jooq.Keys;
-import app.cta4j.jooq.Public;
 import app.cta4j.jooq.tables.records.RouteRecord;
 
 import java.util.function.Function;
@@ -37,7 +37,7 @@ public class Route extends TableImpl<RouteRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>public.route</code>
+     * The reference instance of <code>cta4j.route</code>
      */
     public static final Route ROUTE = new Route();
 
@@ -50,14 +50,14 @@ public class Route extends TableImpl<RouteRecord> {
     }
 
     /**
-     * The column <code>public.route.id</code>.
+     * The column <code>cta4j.route.id</code>.
      */
-    public final TableField<RouteRecord, String> ID = createField(DSL.name("id"), SQLDataType.CLOB.nullable(false), this, "");
+    public final TableField<RouteRecord, String> ID = createField(DSL.name("id"), SQLDataType.VARCHAR(4).nullable(false), this, "");
 
     /**
-     * The column <code>public.route.name</code>.
+     * The column <code>cta4j.route.name</code>.
      */
-    public final TableField<RouteRecord, String> NAME = createField(DSL.name("name"), SQLDataType.CLOB, this, "");
+    public final TableField<RouteRecord, String> NAME = createField(DSL.name("name"), SQLDataType.CLOB.nullable(false), this, "");
 
     private Route(Name alias, Table<RouteRecord> aliased) {
         this(alias, aliased, null);
@@ -68,21 +68,21 @@ public class Route extends TableImpl<RouteRecord> {
     }
 
     /**
-     * Create an aliased <code>public.route</code> table reference
+     * Create an aliased <code>cta4j.route</code> table reference
      */
     public Route(String alias) {
         this(DSL.name(alias), ROUTE);
     }
 
     /**
-     * Create an aliased <code>public.route</code> table reference
+     * Create an aliased <code>cta4j.route</code> table reference
      */
     public Route(Name alias) {
         this(alias, ROUTE);
     }
 
     /**
-     * Create a <code>public.route</code> table reference
+     * Create a <code>cta4j.route</code> table reference
      */
     public Route() {
         this(DSL.name("route"), null);
@@ -94,12 +94,12 @@ public class Route extends TableImpl<RouteRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Public.PUBLIC;
+        return aliased() ? null : Cta4j.CTA4J;
     }
 
     @Override
     public UniqueKey<RouteRecord> getPrimaryKey() {
-        return Keys.ROUTE_PKEY;
+        return Keys.KEY_ROUTE_PRIMARY;
     }
 
     @Override

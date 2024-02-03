@@ -4,12 +4,10 @@
 package app.cta4j.jooq.tables;
 
 
+import app.cta4j.jooq.Cta4j;
 import app.cta4j.jooq.Keys;
-import app.cta4j.jooq.Public;
 import app.cta4j.jooq.tables.records.RouteStopRecord;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.function.Function;
 
 import org.jooq.Field;
@@ -39,7 +37,7 @@ public class RouteStop extends TableImpl<RouteStopRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>public.route_stop</code>
+     * The reference instance of <code>cta4j.route_stop</code>
      */
     public static final RouteStop ROUTE_STOP = new RouteStop();
 
@@ -52,17 +50,17 @@ public class RouteStop extends TableImpl<RouteStopRecord> {
     }
 
     /**
-     * The column <code>public.route_stop.route_id</code>.
+     * The column <code>cta4j.route_stop.route_id</code>.
      */
-    public final TableField<RouteStopRecord, String> ROUTE_ID = createField(DSL.name("route_id"), SQLDataType.CLOB.nullable(false), this, "");
+    public final TableField<RouteStopRecord, String> ROUTE_ID = createField(DSL.name("route_id"), SQLDataType.VARCHAR(4).nullable(false), this, "");
 
     /**
-     * The column <code>public.route_stop.direction_id</code>.
+     * The column <code>cta4j.route_stop.direction_id</code>.
      */
     public final TableField<RouteStopRecord, Integer> DIRECTION_ID = createField(DSL.name("direction_id"), SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
-     * The column <code>public.route_stop.stop_id</code>.
+     * The column <code>cta4j.route_stop.stop_id</code>.
      */
     public final TableField<RouteStopRecord, Integer> STOP_ID = createField(DSL.name("stop_id"), SQLDataType.INTEGER.nullable(false), this, "");
 
@@ -75,21 +73,21 @@ public class RouteStop extends TableImpl<RouteStopRecord> {
     }
 
     /**
-     * Create an aliased <code>public.route_stop</code> table reference
+     * Create an aliased <code>cta4j.route_stop</code> table reference
      */
     public RouteStop(String alias) {
         this(DSL.name(alias), ROUTE_STOP);
     }
 
     /**
-     * Create an aliased <code>public.route_stop</code> table reference
+     * Create an aliased <code>cta4j.route_stop</code> table reference
      */
     public RouteStop(Name alias) {
         this(alias, ROUTE_STOP);
     }
 
     /**
-     * Create a <code>public.route_stop</code> table reference
+     * Create a <code>cta4j.route_stop</code> table reference
      */
     public RouteStop() {
         this(DSL.name("route_stop"), null);
@@ -101,51 +99,12 @@ public class RouteStop extends TableImpl<RouteStopRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Public.PUBLIC;
+        return aliased() ? null : Cta4j.CTA4J;
     }
 
     @Override
     public UniqueKey<RouteStopRecord> getPrimaryKey() {
-        return Keys.ROUTE_STOP_PKEY;
-    }
-
-    @Override
-    public List<ForeignKey<RouteStopRecord, ?>> getReferences() {
-        return Arrays.asList(Keys.ROUTE_STOP__ROUTE_STOP_ROUTE_ID_FKEY, Keys.ROUTE_STOP__ROUTE_STOP_DIRECTION_ID_FKEY, Keys.ROUTE_STOP__ROUTE_STOP_STOP_ID_FKEY);
-    }
-
-    private transient Route _route;
-    private transient Direction _direction;
-    private transient Stop _stop;
-
-    /**
-     * Get the implicit join path to the <code>public.route</code> table.
-     */
-    public Route route() {
-        if (_route == null)
-            _route = new Route(this, Keys.ROUTE_STOP__ROUTE_STOP_ROUTE_ID_FKEY);
-
-        return _route;
-    }
-
-    /**
-     * Get the implicit join path to the <code>public.direction</code> table.
-     */
-    public Direction direction() {
-        if (_direction == null)
-            _direction = new Direction(this, Keys.ROUTE_STOP__ROUTE_STOP_DIRECTION_ID_FKEY);
-
-        return _direction;
-    }
-
-    /**
-     * Get the implicit join path to the <code>public.stop</code> table.
-     */
-    public Stop stop() {
-        if (_stop == null)
-            _stop = new Stop(this, Keys.ROUTE_STOP__ROUTE_STOP_STOP_ID_FKEY);
-
-        return _stop;
+        return Keys.KEY_ROUTE_STOP_PRIMARY;
     }
 
     @Override

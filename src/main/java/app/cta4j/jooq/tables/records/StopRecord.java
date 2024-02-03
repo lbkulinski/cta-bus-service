@@ -22,28 +22,28 @@ public class StopRecord extends UpdatableRecordImpl<StopRecord> implements Recor
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>public.stop.id</code>.
+     * Setter for <code>cta4j.stop.id</code>.
      */
     public void setId(Integer value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>public.stop.id</code>.
+     * Getter for <code>cta4j.stop.id</code>.
      */
     public Integer getId() {
         return (Integer) get(0);
     }
 
     /**
-     * Setter for <code>public.stop.name</code>.
+     * Setter for <code>cta4j.stop.name</code>.
      */
     public void setName(String value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>public.stop.name</code>.
+     * Getter for <code>cta4j.stop.name</code>.
      */
     public String getName() {
         return (String) get(1);

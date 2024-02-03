@@ -4,8 +4,8 @@
 package app.cta4j.jooq.tables;
 
 
+import app.cta4j.jooq.Cta4j;
 import app.cta4j.jooq.Keys;
-import app.cta4j.jooq.Public;
 import app.cta4j.jooq.tables.records.DirectionRecord;
 
 import java.util.function.Function;
@@ -38,7 +38,7 @@ public class Direction extends TableImpl<DirectionRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>public.direction</code>
+     * The reference instance of <code>cta4j.direction</code>
      */
     public static final Direction DIRECTION = new Direction();
 
@@ -51,12 +51,12 @@ public class Direction extends TableImpl<DirectionRecord> {
     }
 
     /**
-     * The column <code>public.direction.id</code>.
+     * The column <code>cta4j.direction.id</code>.
      */
     public final TableField<DirectionRecord, Integer> ID = createField(DSL.name("id"), SQLDataType.INTEGER.nullable(false).identity(true), this, "");
 
     /**
-     * The column <code>public.direction.name</code>.
+     * The column <code>cta4j.direction.name</code>.
      */
     public final TableField<DirectionRecord, String> NAME = createField(DSL.name("name"), SQLDataType.CLOB.nullable(false), this, "");
 
@@ -69,21 +69,21 @@ public class Direction extends TableImpl<DirectionRecord> {
     }
 
     /**
-     * Create an aliased <code>public.direction</code> table reference
+     * Create an aliased <code>cta4j.direction</code> table reference
      */
     public Direction(String alias) {
         this(DSL.name(alias), DIRECTION);
     }
 
     /**
-     * Create an aliased <code>public.direction</code> table reference
+     * Create an aliased <code>cta4j.direction</code> table reference
      */
     public Direction(Name alias) {
         this(alias, DIRECTION);
     }
 
     /**
-     * Create a <code>public.direction</code> table reference
+     * Create a <code>cta4j.direction</code> table reference
      */
     public Direction() {
         this(DSL.name("direction"), null);
@@ -95,7 +95,7 @@ public class Direction extends TableImpl<DirectionRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Public.PUBLIC;
+        return aliased() ? null : Cta4j.CTA4J;
     }
 
     @Override
@@ -105,7 +105,7 @@ public class Direction extends TableImpl<DirectionRecord> {
 
     @Override
     public UniqueKey<DirectionRecord> getPrimaryKey() {
-        return Keys.DIRECTION_PKEY;
+        return Keys.KEY_DIRECTION_PRIMARY;
     }
 
     @Override

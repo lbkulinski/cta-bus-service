@@ -22,28 +22,28 @@ public class RouteRecord extends UpdatableRecordImpl<RouteRecord> implements Rec
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>public.route.id</code>.
+     * Setter for <code>cta4j.route.id</code>.
      */
     public void setId(String value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>public.route.id</code>.
+     * Getter for <code>cta4j.route.id</code>.
      */
     public String getId() {
         return (String) get(0);
     }
 
     /**
-     * Setter for <code>public.route.name</code>.
+     * Setter for <code>cta4j.route.name</code>.
      */
     public void setName(String value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>public.route.name</code>.
+     * Getter for <code>cta4j.route.name</code>.
      */
     public String getName() {
         return (String) get(1);

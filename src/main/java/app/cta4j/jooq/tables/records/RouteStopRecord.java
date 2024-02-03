@@ -21,42 +21,42 @@ public class RouteStopRecord extends UpdatableRecordImpl<RouteStopRecord> implem
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>public.route_stop.route_id</code>.
+     * Setter for <code>cta4j.route_stop.route_id</code>.
      */
     public void setRouteId(String value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>public.route_stop.route_id</code>.
+     * Getter for <code>cta4j.route_stop.route_id</code>.
      */
     public String getRouteId() {
         return (String) get(0);
     }
 
     /**
-     * Setter for <code>public.route_stop.direction_id</code>.
+     * Setter for <code>cta4j.route_stop.direction_id</code>.
      */
     public void setDirectionId(Integer value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>public.route_stop.direction_id</code>.
+     * Getter for <code>cta4j.route_stop.direction_id</code>.
      */
     public Integer getDirectionId() {
         return (Integer) get(1);
     }
 
     /**
-     * Setter for <code>public.route_stop.stop_id</code>.
+     * Setter for <code>cta4j.route_stop.stop_id</code>.
      */
     public void setStopId(Integer value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>public.route_stop.stop_id</code>.
+     * Getter for <code>cta4j.route_stop.stop_id</code>.
      */
     public Integer getStopId() {
         return (Integer) get(2);
