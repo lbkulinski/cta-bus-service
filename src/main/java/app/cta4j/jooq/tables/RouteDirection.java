@@ -4,12 +4,10 @@
 package app.cta4j.jooq.tables;
 
 
+import app.cta4j.jooq.Cta4j;
 import app.cta4j.jooq.Keys;
-import app.cta4j.jooq.Public;
 import app.cta4j.jooq.tables.records.RouteDirectionRecord;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.function.Function;
 
 import org.jooq.Field;
@@ -39,7 +37,7 @@ public class RouteDirection extends TableImpl<RouteDirectionRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>public.route_direction</code>
+     * The reference instance of <code>cta4j.route_direction</code>
      */
     public static final RouteDirection ROUTE_DIRECTION = new RouteDirection();
 
@@ -52,12 +50,12 @@ public class RouteDirection extends TableImpl<RouteDirectionRecord> {
     }
 
     /**
-     * The column <code>public.route_direction.route_id</code>.
+     * The column <code>cta4j.route_direction.route_id</code>.
      */
-    public final TableField<RouteDirectionRecord, String> ROUTE_ID = createField(DSL.name("route_id"), SQLDataType.CLOB.nullable(false), this, "");
+    public final TableField<RouteDirectionRecord, String> ROUTE_ID = createField(DSL.name("route_id"), SQLDataType.VARCHAR(4).nullable(false), this, "");
 
     /**
-     * The column <code>public.route_direction.direction_id</code>.
+     * The column <code>cta4j.route_direction.direction_id</code>.
      */
     public final TableField<RouteDirectionRecord, Integer> DIRECTION_ID = createField(DSL.name("direction_id"), SQLDataType.INTEGER.nullable(false), this, "");
 
@@ -70,21 +68,21 @@ public class RouteDirection extends TableImpl<RouteDirectionRecord> {
     }
 
     /**
-     * Create an aliased <code>public.route_direction</code> table reference
+     * Create an aliased <code>cta4j.route_direction</code> table reference
      */
     public RouteDirection(String alias) {
         this(DSL.name(alias), ROUTE_DIRECTION);
     }
 
     /**
-     * Create an aliased <code>public.route_direction</code> table reference
+     * Create an aliased <code>cta4j.route_direction</code> table reference
      */
     public RouteDirection(Name alias) {
         this(alias, ROUTE_DIRECTION);
     }
 
     /**
-     * Create a <code>public.route_direction</code> table reference
+     * Create a <code>cta4j.route_direction</code> table reference
      */
     public RouteDirection() {
         this(DSL.name("route_direction"), null);
@@ -96,40 +94,12 @@ public class RouteDirection extends TableImpl<RouteDirectionRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Public.PUBLIC;
+        return aliased() ? null : Cta4j.CTA4J;
     }
 
     @Override
     public UniqueKey<RouteDirectionRecord> getPrimaryKey() {
-        return Keys.ROUTE_DIRECTION_PKEY;
-    }
-
-    @Override
-    public List<ForeignKey<RouteDirectionRecord, ?>> getReferences() {
-        return Arrays.asList(Keys.ROUTE_DIRECTION__ROUTE_DIRECTION_ROUTE_ID_FKEY, Keys.ROUTE_DIRECTION__ROUTE_DIRECTION_DIRECTION_ID_FKEY);
-    }
-
-    private transient Route _route;
-    private transient Direction _direction;
-
-    /**
-     * Get the implicit join path to the <code>public.route</code> table.
-     */
-    public Route route() {
-        if (_route == null)
-            _route = new Route(this, Keys.ROUTE_DIRECTION__ROUTE_DIRECTION_ROUTE_ID_FKEY);
-
-        return _route;
-    }
-
-    /**
-     * Get the implicit join path to the <code>public.direction</code> table.
-     */
-    public Direction direction() {
-        if (_direction == null)
-            _direction = new Direction(this, Keys.ROUTE_DIRECTION__ROUTE_DIRECTION_DIRECTION_ID_FKEY);
-
-        return _direction;
+        return Keys.KEY_ROUTE_DIRECTION_PRIMARY;
     }
 
     @Override

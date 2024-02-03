@@ -21,28 +21,28 @@ public class RouteDirectionRecord extends UpdatableRecordImpl<RouteDirectionReco
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>public.route_direction.route_id</code>.
+     * Setter for <code>cta4j.route_direction.route_id</code>.
      */
     public void setRouteId(String value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>public.route_direction.route_id</code>.
+     * Getter for <code>cta4j.route_direction.route_id</code>.
      */
     public String getRouteId() {
         return (String) get(0);
     }
 
     /**
-     * Setter for <code>public.route_direction.direction_id</code>.
+     * Setter for <code>cta4j.route_direction.direction_id</code>.
      */
     public void setDirectionId(Integer value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>public.route_direction.direction_id</code>.
+     * Getter for <code>cta4j.route_direction.direction_id</code>.
      */
     public Integer getDirectionId() {
         return (Integer) get(1);

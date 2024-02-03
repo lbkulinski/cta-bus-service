@@ -22,28 +22,28 @@ public class DirectionRecord extends UpdatableRecordImpl<DirectionRecord> implem
     private static final long serialVersionUID = 1L;
 
     /**
-     * Setter for <code>public.direction.id</code>.
+     * Setter for <code>cta4j.direction.id</code>.
      */
     public void setId(Integer value) {
         set(0, value);
     }
 
     /**
-     * Getter for <code>public.direction.id</code>.
+     * Getter for <code>cta4j.direction.id</code>.
      */
     public Integer getId() {
         return (Integer) get(0);
     }
 
     /**
-     * Setter for <code>public.direction.name</code>.
+     * Setter for <code>cta4j.direction.name</code>.
      */
     public void setName(String value) {
         set(1, value);
     }
 
     /**
-     * Getter for <code>public.direction.name</code>.
+     * Getter for <code>cta4j.direction.name</code>.
      */
     public String getName() {
         return (String) get(1);

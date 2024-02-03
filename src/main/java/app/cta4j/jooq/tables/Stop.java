@@ -4,8 +4,8 @@
 package app.cta4j.jooq.tables;
 
 
+import app.cta4j.jooq.Cta4j;
 import app.cta4j.jooq.Keys;
-import app.cta4j.jooq.Public;
 import app.cta4j.jooq.tables.records.StopRecord;
 
 import java.util.function.Function;
@@ -37,7 +37,7 @@ public class Stop extends TableImpl<StopRecord> {
     private static final long serialVersionUID = 1L;
 
     /**
-     * The reference instance of <code>public.stop</code>
+     * The reference instance of <code>cta4j.stop</code>
      */
     public static final Stop STOP = new Stop();
 
@@ -50,12 +50,12 @@ public class Stop extends TableImpl<StopRecord> {
     }
 
     /**
-     * The column <code>public.stop.id</code>.
+     * The column <code>cta4j.stop.id</code>.
      */
     public final TableField<StopRecord, Integer> ID = createField(DSL.name("id"), SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
-     * The column <code>public.stop.name</code>.
+     * The column <code>cta4j.stop.name</code>.
      */
     public final TableField<StopRecord, String> NAME = createField(DSL.name("name"), SQLDataType.CLOB.nullable(false), this, "");
 
@@ -68,21 +68,21 @@ public class Stop extends TableImpl<StopRecord> {
     }
 
     /**
-     * Create an aliased <code>public.stop</code> table reference
+     * Create an aliased <code>cta4j.stop</code> table reference
      */
     public Stop(String alias) {
         this(DSL.name(alias), STOP);
     }
 
     /**
-     * Create an aliased <code>public.stop</code> table reference
+     * Create an aliased <code>cta4j.stop</code> table reference
      */
     public Stop(Name alias) {
         this(alias, STOP);
     }
 
     /**
-     * Create a <code>public.stop</code> table reference
+     * Create a <code>cta4j.stop</code> table reference
      */
     public Stop() {
         this(DSL.name("stop"), null);
@@ -94,12 +94,12 @@ public class Stop extends TableImpl<StopRecord> {
 
     @Override
     public Schema getSchema() {
-        return aliased() ? null : Public.PUBLIC;
+        return aliased() ? null : Cta4j.CTA4J;
     }
 
     @Override
     public UniqueKey<StopRecord> getPrimaryKey() {
-        return Keys.STOP_PKEY;
+        return Keys.KEY_STOP_PRIMARY;
     }
 
     @Override
