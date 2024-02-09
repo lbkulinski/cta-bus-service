@@ -157,12 +157,14 @@ public final class BusService {
         Set<Bus> buses = body.buses();
 
         if (buses == null) {
-            String message = "Buses with the specified route ID and stop ID could not be found";
+            String message = "Buses with the route ID %s and stop ID %s could not found".formatted(routeId, stopId);
 
-            throw new DataFetcherException(message, ErrorType.NOT_FOUND);
+            this.rollbar.info(message);
+
+            return Set.of();
         }
 
-        return buses;
+        return Set.copyOf(buses);
     }
 
     public Set<Bus> followBus(int id) {
@@ -199,11 +201,13 @@ public final class BusService {
         Set<Bus> buses = body.buses();
 
         if (buses == null) {
-            String message = "Buses with the specified ID could not be found";
+            String message = "A bus with the ID %s could not found".formatted(id);
 
-            throw new DataFetcherException(message, ErrorType.NOT_FOUND);
+            this.rollbar.info(message);
+
+            return Set.of();
         }
 
-        return buses;
+        return Set.copyOf(buses);
     }
 }
