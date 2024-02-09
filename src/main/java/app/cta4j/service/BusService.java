@@ -157,10 +157,14 @@ public final class BusService {
         Set<Bus> buses = body.buses();
 
         if (buses == null) {
+            String message = "Buses with the route ID %s and stop ID %s could not found".formatted(routeId, stopId);
+
+            this.rollbar.info(message);
+
             return Set.of();
         }
 
-        return buses;
+        return Set.copyOf(buses);
     }
 
     public Set<Bus> followBus(int id) {
@@ -197,9 +201,13 @@ public final class BusService {
         Set<Bus> buses = body.buses();
 
         if (buses == null) {
+            String message = "A bus with the ID %s could not found".formatted(id);
+
+            this.rollbar.info(message);
+
             return Set.of();
         }
 
-        return buses;
+        return Set.copyOf(buses);
     }
 }
